@@ -1,0 +1,426 @@
+/* ===================================================
+   내 취미 소개 홈페이지 - 조깅 (Jogging)
+   순수 HTML/CSS 정적 페이지 (외부 서버/라이브러리 미사용)
+   =================================================== */
+
+/* CSS Variables */
+:root {
+  --primary-color: #0284c7;
+  --primary-light: #e0f2fe;
+  --primary-dark: #0369a1;
+  --accent-color: #10b981;
+  --accent-light: #d1fae5;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #64748b;
+  --bg-main: #f8fafc;
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 40%, #f0f9ff 100%);
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 25px -3px rgba(15, 23, 42, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.65;
+  min-height: 100vh;
+  padding: 32px 16px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Layout Wrapper */
+.wrapper {
+  max-width: 840px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* 1. Header / Hero Section */
+.hero-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #10b981, #0284c7, #3b82f6);
+}
+
+.badge {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.main-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  line-height: 1.35;
+}
+
+.one-line-intro {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* Section Title */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding-left: 4px;
+}
+
+/* 2. Emoji Cards Grid (사진 대신 이모지 카드 3장) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.emoji-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  height: 100%;
+}
+
+.emoji-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: #cbd5e1;
+}
+
+.card-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 18px;
+  user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+  transition: transform 0.25s ease;
+}
+
+.emoji-card:hover .card-emoji {
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 3. Steps Container ("이 취미를 시작하려면" 3단계 안내) */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.step-badge {
+  flex-shrink: 0;
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+}
+
+.step-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.step-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 16px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-light);
+}
+
+.footer-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+}
+
+/* ===================================================
+   중국어 번역 스타일 (Chinese Translation Styling)
+   글자색: 연한 회색 (#94a3b8), 레이아웃 유지
+   =================================================== */
+
+.cn-text {
+  display: block;
+  color: #94a3b8; /* 연한 회색 */
+  font-weight: 400;
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.cn-title {
+  font-size: 0.52em;
+  font-weight: 500;
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.cn-intro {
+  font-size: 0.88em;
+  margin-top: 8px;
+  color: #94a3b8;
+}
+
+.cn-section-title {
+  font-size: 0.72em;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.cn-card-title {
+  font-size: 0.82em;
+  font-weight: 500;
+  margin-top: 4px;
+  color: #94a3b8;
+}
+
+.cn-card-desc {
+  font-size: 0.88em;
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.cn-step-title {
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-top: 3px;
+  color: #94a3b8;
+}
+
+.cn-step-desc {
+  font-size: 0.88em;
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.cn-footer-msg {
+  font-size: 0.88em;
+  margin-top: 4px;
+  color: #94a3b8;
+}
+
+.cn-footer-copy {
+  font-size: 0.85em;
+  margin-top: 2px;
+  color: #94a3b8;
+}
+
+/* ===================================================
+   반응형 미디어 쿼리 (모바일 화면 최적화)
+   글자 잘림 방지 및 모바일 친화적 레이아웃
+   =================================================== */
+
+@media (max-width: 680px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .wrapper {
+    gap: 28px;
+  }
+
+  .hero-card {
+    padding: 30px 18px;
+  }
+
+  .main-title {
+    font-size: 1.55rem;
+    margin-bottom: 12px;
+  }
+
+  .one-line-intro {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .emoji-card {
+    padding: 24px 20px;
+  }
+
+  .card-emoji {
+    font-size: 3rem;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .step-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px 18px;
+  }
+
+  .step-badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .step-title {
+    font-size: 1.05rem;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+  }
+
+  .footer-message {
+    font-size: 0.95rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .main-title {
+    font-size: 1.35rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .hero-card {
+    padding: 24px 14px;
+  }
+}
